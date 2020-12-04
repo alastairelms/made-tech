@@ -38,7 +38,6 @@
 
 
 
-
 // *************************** SOLUTION
 
 const withdraw = amount => {
@@ -47,37 +46,30 @@ const withdraw = amount => {
   
 // $100
   const numberOf100s = Math.floor(amount / 100)
-  let remainderFrom100 = amount - (numberOf100s * 100)
+  let remainderFrom100s = amount - (numberOf100s * 100)
   
-  if (remainderFrom100 === 10 || remainderFrom100 === 30) {
+  if (remainderFrom100s === 10 || remainderFrom100s === 30) {
       solution[0] = numberOf100s - 1
-      remainderFrom100 += 100
+      remainderFrom100s += 100
   } else {
       solution[0] = numberOf100s
   }
-  
-//   console.log(remainderFrom100)
-  
+    
 // $50
-  const numberOf50s = Math.floor(remainderFrom100 / 50)
-  let remainderFrom50 = remainderFrom100 - (numberOf50s * 50)
+  const numberOf50s = Math.floor(remainderFrom100s / 50)
+  let remainderFrom50s = remainderFrom100s - (numberOf50s * 50)
   
-  if (remainderFrom50 === 10 || remainderFrom50 === 30) {
+  if (remainderFrom50s === 10 || remainderFrom50s === 30) {
       solution[1] = numberOf50s - 1
-      remainderFrom50 += 50
+      remainderFrom50s += 50
   } else {
     solution[1] = numberOf50s
   }
-  
-//   console.log(remainderFrom50)
       
 // $20  
-  if (remainderFrom50 === 0) {
-     solution[2] = 0
-  } else {
-     const numberOf20s = Math.floor(remainderFrom50 / 20)
-     solution[2] = numberOf20s 
-  }
+  const numberOf20s = Math.floor(remainderFrom50 / 20)
+      
+      solution[2] = numberOf20s
   
   return solution
 
