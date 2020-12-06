@@ -36,28 +36,30 @@
 
 // *************************** SOLUTION
 
-// plate1 = B I Z         plate2 = 8 1 2
-
-similarLicensePlates = (plate1, plate2) => { 
-
-  const equivalents = [["0", "O", "Q"], ["1", "I", "T"], ["2", "Z"], 
+const equivalents = [["0", "O", "Q"], ["1", "I", "T"], ["2", "Z"], 
                       ["5", "S"], ["8", "B"]]
+
+similarLicensePlates = (plate1, plate2) => {
   
-  const sanitisedPlate1 = plate1.replace(' ', '').split("")
-  const sanitisedPlate2 = plate2.replace(' ', '').split("")
+  const sanitisedPlate1 = sanitiseAndSplit(plate1)
+  const sanitisedPlate2 = sanitiseAndSplit(plate2)
+    
+  return sanitisedPlate1.every((letter, index) => {
+    const otherLetter = sanitisedPlate2[index]
+    return lettersAreVisuallySimilar(letter, otherLetter)
+  })
+}
+
+const sanitiseAndSplit = (plate) => plate.split("").filter((char) => char !== ' ')
+
+const lettersAreVisuallySimilar = (letter1, letter2) => {
+
+  if (letter1 === letter2) return true
   
-  console.log(sanitisedPlate1)
-  console.log(sanitisedPlate2)
-  
-  for (i = 0; i < sanitisedPlate1.length; i++) {
-    for (group in equivalents) {
-      if (group.includes(sanitisedPlate1[i]) && group.includes(sanitisedPlate2[i])) {
-        return true
-      } else if (sanitisedPlate1[i] === sanitisedPlate2[i]) {
-        return true
-      } else {
-        return false
-      }
+  for (group of equivalents) {
+    if (group.includes(letter1) && group.includes(letter2)) {
+      return true
     }
   }
+  return false
 }

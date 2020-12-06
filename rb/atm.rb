@@ -1,34 +1,24 @@
-def withdraw amount 
+def withdraw (amount) 
 
     solution = [0, 0, 0]
-# $100
-    number_of_100s = (amount / 100).floor
-    remainder_from_100s = amount - (number_of_100s * 100)
 
-    if (remainder_from_100s == 10 || remainder_from_100s == 30) do
-        solution[0] = number_of_100s - 1 
-        remainder_from_100s += 100
-    else
-        solution[0] = number_of_100s
-    end
+    number_of_100s, remainder_from_100s = get_with_remainder(100, amount)
 
-# $50
-    number_of_50s = (remainder_from_100s / 50).floor
-    remainder_from_50s = remainder_from_100s - (remainder_from_50s * 50)
-    
-    if (remainder_from_50s == 10 || remainder_from_50s == 30) do
-        solution[1] = number_of_50s - 1
-        remainder_from_50s += 50
-    else
-        solution[1] = number_of_50s
-    end
+    number_of_50s, remainder_from_50s = get_with_remainder(50, remainder_from_100s)
 
     number_of_20s = (remainder_from_50s / 20).floor
-        solution[2] = number_of_20s
 
-    return solution
+    return [number_of_100s, number_of_50s, number_of_20s]
+  
+end
 
+def get_with_remainder(note, amount)
+  number_of_bills, remainder = amount.divmod(note)
 
-
-
+  if (remainder == 10 || remainder == 30)
+    number_of_bills = number_of_bills - 1 
+    remainder += note
+  end
+  
+  return [number_of_bills, remainder]
 end
